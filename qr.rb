@@ -35,6 +35,7 @@ if user_selection == 1
   print "Please provide a URL for the QR code: "
   input_url = gets.chomp
   puts "Creating QR code to \"#{input_url}\"..."
+  qrcode = RQRCode::QRCode.new("#{input_url}")
 
 elsif user_selection == 2
   puts "\nLet's make a QR code that joins a wifi network!\n\n"
@@ -43,6 +44,7 @@ elsif user_selection == 2
   print "Enter the password for the wifi network: "
   wifi_password = gets.chomp
   puts "Creating QR code to join \"#{wifi_name}\"..."
+  qrcode = RQRCode::QRCode.new("WIFI:T:WPA;S:#{wifi_name};P:#{wifi_password};;")
 
 elsif user_selection == 3
   puts "\nLet's make a QR code that sends a text message!\n\n"
@@ -51,19 +53,19 @@ elsif user_selection == 3
   puts "What message would you like to send to #{input_phone_num}?"
   text_message = gets.chomp
   puts "Creating QR code to text #{input_phone_num}..."
+  qrcode = RQRCode::QRCode.new("SMSTO:#{input_phone_num}:#{text_message}")
 elsif user_selection ==4
   puts "\nLooks like you don't need a QR code. Come back if you do!\n\n"
 end
 
-=begin
-gets.chomp
-
-# use the RQRCode::QRCode class to encode some text
-qrcode = RQRCode::QRCode.new("https://en.wikipedia.org/wiki/QR_code")
-
 # use the .as_png method to create a 500px by 500px image
 png = qrcode.as_png({:size => 500})
 
+# ask user for file name
+print "Provide a name for your image file (exclude file extension): "
+file_name_input = gets.chomp
+
 # write the image data to a file
-IO.binwrite("sometext.png", png.to_s)
-=end
+IO.binwrite("#{file_name_input}.png", png.to_s)
+
+puts "Check your folder for your QR code!"
