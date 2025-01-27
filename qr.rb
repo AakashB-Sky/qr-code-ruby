@@ -32,11 +32,25 @@ print "\n"
 
 if user_selection == 1
   puts "\nLet's make a QR code that links to a URL!\n\n"
-  
+  print "Please provide a URL for the QR code: "
+  input_url = gets.chomp
+  puts "Creating QR code to \"#{input_url}\"..."
+
 elsif user_selection == 2
   puts "\nLet's make a QR code that joins a wifi network!\n\n"
+  print "Please provide the name of the wifi network: "
+  wifi_name = gets.chomp
+  print "Enter the password for the wifi network: "
+  wifi_password = gets.chomp
+  puts "Creating QR code to join \"#{wifi_name}\"..."
+
 elsif user_selection == 3
   puts "\nLet's make a QR code that sends a text message!\n\n"
+  print "Please provide the phone number you'd like to text (exclude parentheses and dashes): "
+  input_phone_num = gets.chomp
+  puts "What message would you like to send to #{input_phone_num}?"
+  text_message = gets.chomp
+  puts "Creating QR code to text #{input_phone_num}..."
 elsif user_selection ==4
   puts "\nLooks like you don't need a QR code. Come back if you do!\n\n"
 end
